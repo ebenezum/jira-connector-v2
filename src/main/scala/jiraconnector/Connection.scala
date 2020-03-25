@@ -1,12 +1,12 @@
 package jiraconnector
 
 import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
+import akka.http.scaladsl.model.headers.BasicHttpCredentials
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
-import akka.http.scaladsl.model.headers.BasicHttpCredentials
-import akka.stream.ActorMaterializer
 
 object Connection {
 
