@@ -18,7 +18,8 @@ object Connection {
     val authorization = headers.Authorization(BasicHttpCredentials(user, pass))
 
     val responseFuture: Future[HttpResponse] =
-      Http().singleRequest(
+      Http()
+      .singleRequest(
         HttpRequest(
           HttpMethods.GET,
           uri = targetServer+"/rest/api/3/project",
@@ -28,7 +29,7 @@ object Connection {
 
     responseFuture
       .onComplete {
-        case Success(res) => println(res.entity.discardBytes())
+        case Success(res) => println(res)
         case Failure(_)   => sys.error("something wrong")
       }
   }
