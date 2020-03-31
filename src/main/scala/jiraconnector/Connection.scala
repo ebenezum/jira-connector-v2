@@ -13,7 +13,7 @@ import scala.concurrent.duration._
 
 object Connection {
 
-  def newConnection(targetServer: String, user: String, pass: String) :String = {
+  def returnProjectsList(targetServer: String, user: String, pass: String) :String = {
     implicit val system = ActorSystem()
     implicit val materializer = ActorMaterializer()
     implicit val executionContext = system.dispatcher
@@ -30,9 +30,11 @@ object Connection {
         )
       )
       
-      val result: HttpResponse = Await.result(responseFuture, Duration.Inf)
-      val fresult:Future[String] = Unmarshal(result.entity).to[String]
-      val morefinalresult:String = Await.result(fresult, Duration.Inf)
-      return morefinalresult
+      val morefinalresult = for {
+        result  <- responseFuture
+        fresult <- Unmarshal(result.entity).to[String]
+      } yield (fresult)
+
+      return Await.result(morefinalresult, Duration.Inf)
   }
 }

@@ -8,7 +8,7 @@ object Main {
     val host = ConfigFactory.load().getString("jira.PRP_SERVER_URL")
     val user = ConfigFactory.load().getString("jira.JIRA_USER")
     val pass = ConfigFactory.load().getString("jira.JIRA_API_TOKEN")
-    val efekt = jiraconnector.Connection.newConnection(host, user, pass)
+    val efekt = jiraconnector.Connection.returnProjectsList(host, user, pass)
     println(efekt)
   }
 }
